@@ -1,1 +1,0 @@
-Além do malloc, existe o realloc, mas o realloc só funciona se a memoria já foi alocada uma vez por malloc.
