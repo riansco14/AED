@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
+
 struct Node{
 	int num;
 	struct Node *prox;
@@ -21,7 +21,7 @@ void limparEspecifico(node *LISTA);
 
 int main(void)
 {
-	setlocale(LC_ALL, "Portuguese");
+	
 	node *LISTA = (node *) malloc(sizeof(node));
 	if(!LISTA){
 		printf("Sem memoria disponivel!\n");
@@ -203,14 +203,13 @@ void limparCauda(node *LISTA)
 
 		node *tmp = LISTA->prox;
 		node *malandro=tmp->prox;
-	//	int i; i=contador(LISTA);
+
 
 		while(malandro->prox!=NULL)
 		{
 			
 		tmp = tmp->prox; 
-		malandro=tmp->prox;
-	//	i--;	
+		malandro=tmp->prox;	
 		}	
 		tmp->prox= NULL;		
 	
@@ -221,34 +220,29 @@ void limparCauda(node *LISTA)
 
 void limparEspecifico(node *LISTA)
 {
-		node *novo=(node *) malloc(sizeof(node));
+	
 	if(!vazia(LISTA)){
 		node *atual;
 
 		node *tmp = LISTA->prox;
 		int i; 
 		printf("\nDigite o número do node que deseja deletar\n:");
-		scanf("%d",&i);
-		if(i>contador(LISTA)) printf("Posiçao invalida\n");
-		else if(i==0) limparHead(LISTA);
-		else {
-		while(i>1){
-			tmp=tmp->prox;
-			i--;
+		scanf("%d",&i);		
+		if(i==0) limparHead(LISTA);
+			else {
+			   		   	while(i>1){
+			   	   	   	   	tmp=tmp->prox;
+			   	   	   	   	i--;
 			
-		}
-		
-		
-		
-			atual=tmp->prox;
-			tmp->prox =NULL;
-			atual=atual->prox;
-			tmp->prox=atual;
-			free(atual);
+											}		
+		atual=tmp->prox;
+		tmp->prox =NULL;
+		atual=atual->prox;
+		tmp->prox=atual;
 			
-			
-		}		
-		
+		free(atual);	
+					
+		}				
 		
 	}
 }
