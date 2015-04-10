@@ -17,7 +17,6 @@ void exibe(node *LISTA);
 void libera(node *LISTA);
 void limparHead(node *LISTA);
 void limparCauda(node *LISTA);
-int contador(node *LISTA);
 void limparEspecifico(node *LISTA);
 
 int main(void)
@@ -203,43 +202,28 @@ void limparCauda(node *LISTA)
 		
 
 		node *tmp = LISTA->prox;
-		int i; i=contador(LISTA);
+		node *malandro=tmp->prox;
+	//	int i; i=contador(LISTA);
 
-		while(i>1)
+		while(malandro->prox!=NULL)
 		{
+			
 		tmp = tmp->prox; 
-		i--;	
-		}		
-
+		malandro=tmp->prox;
+	//	i--;	
+		}	
 		tmp->prox= NULL;		
-	//	free(tmp);
+	
+	free(malandro);
 		
 	}
 }
-int contador(node *LISTA){
-		system("cls");
-	if(!vazia(LISTA)){
-		node *atual;
-			   
-		int malandragem=0;
-	
-		atual = LISTA->prox;	
-		while(atual!=NULL){
-			atual = atual->prox;			
-			malandragem++;
-		}
-		malandragem-=1;
-		free(atual);
-		return malandragem;
-}
 
-}
 void limparEspecifico(node *LISTA)
 {
 		node *novo=(node *) malloc(sizeof(node));
 	if(!vazia(LISTA)){
-		node *proxNode,
-			  *atual;
+		node *atual;
 
 		node *tmp = LISTA->prox;
 		int i; 
