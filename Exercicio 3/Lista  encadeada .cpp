@@ -20,6 +20,7 @@ void limparCauda(node *LISTA);
 void limparEspecifico(node *LISTA);
 void insereEspecifico(node *LISTA);
 
+
 int main(void)
 {
 	
