@@ -18,6 +18,7 @@ void libera(node *LISTA);
 void limparHead(node *LISTA);
 void limparCauda(node *LISTA);
 void limparEspecifico(node *LISTA);
+void insereEspecifico(node *LISTA);
 
 int main(void)
 {
@@ -28,7 +29,8 @@ int main(void)
 		exit(1);
 	}
 	inicia(LISTA);
-	int opt;
+	
+		int opt;
 
 	do{
 		opt=menu();
@@ -57,6 +59,7 @@ int menu(void)
 	printf("5. Deletar o elemento da cabeça da lista\n");
 	printf("6. Deletar o elemento da cauda da lista\n");
 	printf("7. Deletar qualquer elemento  da lista\n");
+	printf("8. insere em qualquer elemento  da lista\n");
 	printf("Opcao: "); scanf("%d", &opt);
 
 	return opt;
@@ -92,6 +95,9 @@ void opcao(node *LISTA, int op)
 			break;
 		case 7:
 			limparEspecifico(LISTA);
+			break;
+		case 8:
+			insereEspecifico(LISTA);
 			break;
 			
 
@@ -243,6 +249,48 @@ void limparEspecifico(node *LISTA)
 		free(atual);	
 					
 		}				
+		
+	}
+}
+void insereEspecifico(node *LISTA){
+	if(!vazia(LISTA))
+	{
+		node *tmpC=LISTA;
+		node *tmpF=LISTA->prox;
+			node *scan=(node *) malloc(sizeof(node));
+		
+		
+		int i,valor;
+		printf("\nDigite a posiçao do node que deseja colocar\n:");
+		scanf("%d",&i);	
+		
+		printf("\nDigite a posiçao do node que deseja colocar\n:");
+		
+		scanf("%d",&scan->num);
+		
+			
+		while(i>=1){
+			   	   	   	  	tmpC=tmpC->prox;
+			   	   	   	  	tmpF=tmpF->prox;
+			   	   	   	  	
+			   	   	   	   	
+			i--;
+											}
+											
+											
+										
+		tmpC->prox=scan;
+		scan->prox=tmpF;
+
+
+ /* .Lista=1, 2, 4, 5
+ quero inserir 3 na posição 2
+ tmpC = membros do começo -> 1, 2
+ scan= membro do meio 3
+ tmpF membros do fim 4,5	*/
+										
+		
+		
 		
 	}
 }
