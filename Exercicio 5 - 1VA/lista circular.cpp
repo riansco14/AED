@@ -59,7 +59,6 @@ int menu(void){
         printf("3. Adicionar no fim\n");
         printf("4. Adicionar no índice\n");
         printf("5. Apagar do início\n");
-        printf("6. Apagar do fim\n");
         printf("7. Apagar do índice\n");
         printf("8. Zerar lista\n");
 
