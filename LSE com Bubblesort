@@ -1,0 +1,342 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+	int num;
+	struct Node *prox;
+};
+typedef struct Node node;
+int tamanho=0;
+
+void inicia(node *LISTA);
+int menu(void);
+void opcao(node *LISTA, int op);
+void insereFim(node *LISTA);
+void insereInicio(node *LISTA);
+void exibe(node *LISTA);
+void libera(node *LISTA);
+void limparHead(node *LISTA);
+void limparCauda(node *LISTA);
+void limparEspecifico(node *LISTA);
+void insereEspecifico(node *LISTA);
+void ordena(node *LISTA);
+
+int main(void)
+{
+
+	node *LISTA = (node *) malloc(sizeof(node));
+	if(!LISTA){
+		printf("Sem memoria disponivel!\n");
+		exit(1);
+	}
+	inicia(LISTA);
+
+		int opt;
+
+	do{
+		opt=menu();
+		opcao(LISTA,opt);
+	}while(opt);
+
+	free(LISTA);
+	return 0;
+}
+
+void inicia(node *LISTA)
+{
+	LISTA->prox = NULL;
+	tamanho=0;
+}
+
+int menu(void)
+{
+	int opt;
+
+	printf("Escolha a opção\n");
+	printf("0. Sair\n");
+	printf("1. Exibir lista\n");
+	printf("2. Adicionar node no inicio\n");
+	printf("3. Adicionar node no final\n");
+	printf("4. Zerar lista\n");
+	printf("5. Deletar o elemento da cabeça da lista\n");
+	printf("6. Deletar o elemento da cauda da lista\n");
+	printf("7. Deletar qualquer lugar  da lista\n");
+	printf("8. Insere em qualquer lugar  da lista\n");
+	printf("9. Ordenar\n");
+	printf("Opcao: "); scanf("%d", &opt);
+
+	return opt;
+}
+
+void opcao(node *LISTA, int op)
+{
+	switch(op){
+		case 0:
+			libera(LISTA);
+			break;
+
+		case 1:
+			exibe(LISTA);
+			break;
+
+		case 2:
+			insereInicio(LISTA);
+			break;
+
+		case 3:
+			insereFim(LISTA);
+			break;
+
+		case 4:
+			libera(LISTA);
+			inicia(LISTA);
+			break;
+		case 5:
+			limparHead(LISTA);
+			break;
+		case 6:
+			limparCauda(LISTA);
+			break;
+		case 7:
+			limparEspecifico(LISTA);
+			break;
+		case 8:
+			insereEspecifico(LISTA);
+			break;
+		case 9:
+			ordena(LISTA);
+			break;
+
+
+		default:
+			printf("Comando invalido\n\n");
+	}
+}
+
+int vazia(node *LISTA)
+{
+	if(LISTA->prox == NULL)
+		return 1;
+	else
+		return 0;
+}
+
+
+void insereFim(node *LISTA)
+{
+	system("cls");
+	node *novo=(node *) malloc(sizeof(node));
+	if(!novo){
+		printf("Sem memoria disponivel!\n");
+		exit(1);
+	}
+	printf("Novo elemento: ");
+	scanf("%d", &novo->num);
+	novo->prox = NULL;
+
+	if(vazia(LISTA))
+		LISTA->prox=novo;
+	else{
+		node *tmp = LISTA->prox;
+
+		while(tmp->prox != NULL)
+			tmp = tmp->prox;
+
+		tmp->prox = novo;
+	}
+	tamanho++;
+}
+
+void insereInicio(node *LISTA)
+{
+	system("cls");
+	node *novo=(node *) malloc(sizeof(node));
+	if(!novo){
+		printf("Sem memoria disponivel!\n");
+		exit(1);
+	}
+	printf("Novo elemento: "); scanf("%d", &novo->num);
+
+	node *oldHead = LISTA->prox;
+
+	LISTA->prox = novo;
+	novo->prox = oldHead;
+	tamanho++;
+}
+
+void exibe(node *LISTA)
+{
+	system("cls");
+	if(vazia(LISTA)){
+		printf("Lista vazia!\n\n");
+		return ;
+	}
+
+	node *tmp;
+	tmp = LISTA->prox;
+
+	while( tmp != NULL){
+		printf("\t%d\t", tmp->num);
+		tmp = tmp->prox;
+	}
+
+
+	printf("\n\n");
+}
+
+void libera(node *LISTA)
+{
+	system("cls");
+	if(!vazia(LISTA)){
+		node *aux,
+			  *lista;
+
+		lista = LISTA->prox;
+			while(lista != NULL){
+			aux = lista->prox;
+			lista = aux;
+			free(aux);
+
+		}
+	}
+}
+void limparHead(node *LISTA)
+{
+	system("cls");
+	if(!vazia(LISTA)){
+		node *atual;
+
+
+		atual = LISTA->prox;
+
+			LISTA->prox=atual->prox;
+			free(atual);
+
+	}
+		tamanho--;
+}
+void limparCauda(node *LISTA)
+{
+
+	if(!vazia(LISTA)){
+
+
+		node *tmp = LISTA->prox;
+		node *malandro=tmp->prox;
+
+
+		while(malandro->prox!=NULL)
+		{
+
+		tmp = tmp->prox;
+		malandro=tmp->prox;
+		}
+		tmp->prox= NULL;
+
+	free(malandro);
+
+	}
+	tamanho--;
+}
+
+void limparEspecifico(node *LISTA)
+{
+
+	if(!vazia(LISTA)){
+		node *atual;
+
+		node *tmp = LISTA->prox;
+		int i;
+		printf("\nDigite o número do node que deseja deletar\n:");
+		scanf("%d",&i);
+		if(i==0) limparHead(LISTA);
+			else {
+			   		   	while(i>1){
+			   	   	   	   	tmp=tmp->prox;
+			   	   	   	   	i--;
+
+											}
+		atual=tmp->prox;
+		tmp->prox =NULL;
+		atual=atual->prox;
+		tmp->prox=atual;
+
+
+
+		}
+
+	}
+		tamanho--;
+}
+void insereEspecifico(node *LISTA){
+	if(!vazia(LISTA))
+	{
+		node *tmpC=LISTA;
+		node *tmpF=LISTA->prox;
+			node *scan=(node *) malloc(sizeof(node));
+
+
+		int i,valor;
+		printf("\nDigite a posiçao do node que deseja colocar\n:");
+		scanf("%d",&i);
+
+		printf("\nDigite a posiçao do node que deseja colocar\n:");
+
+		scanf("%d",&scan->num);
+
+
+		while(i>=1){
+			   	   	   	  	tmpC=tmpC->prox;
+
+
+			i--;
+											}
+
+		scan->prox=tmpC->prox;
+
+		tmpC->prox=scan;
+
+
+	}
+	tamanho++;
+}
+
+void ordena(node *LISTA)
+{
+	 	int i=tamanho,i2=tamanho-2,i3;
+        node *a;
+        node *tmp;
+        node *c;
+
+        while(i){
+        	a=LISTA->prox->prox;
+       	    tmp=LISTA->prox;
+        	exibe(LISTA);    //EXIBICAO
+			system("pause"); //PAUSA
+        if(a->num<tmp->num){
+        	tmp->prox=a->prox;
+        	a->prox=tmp;
+        	LISTA->prox=a;
+        }
+		else a=tmp;
+		i3=i2;
+		while(i3>0){
+			tmp=a->prox;
+			c=a->prox->prox; exibe(LISTA);
+			system("pause");
+			if(tmp->num>c->num){
+
+					tmp->prox=c->prox;
+					a->prox=c;
+					c->prox=tmp;
+			}
+			a=a->prox;
+			i3--;
+		}
+
+		i2--;
+		i--;
+        }
+}
+
+
